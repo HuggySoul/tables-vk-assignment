@@ -1,0 +1,12 @@
+node_modules 
+dist 
+build 
+*.log 
+.git 
+.gitignore 
+.env 
+db.json5  
+*.md 
+*.test.js 
+*.spec.js 
+coverage
