@@ -1,13 +1,21 @@
 import { ApiRequest } from "../../../shared/api/reqTemplate.api";
 import type { Review } from "../../../shared/types/tableRecord.type";
+import type { PaginatedRes } from "../../../shared/types/apiResponse.type";
 
-/** Получение части отзывов */
-export const GetReviews = async (page: number, limit: number) => {
+/** Получение отзывов c пагинацией */
+export const GetReviews = async (
+  page: number,
+  limit: number,
+  setError?: (error: string | null) => void
+) => {
   try {
-    const res = await ApiRequest<Review[]>(`/reviews?_page=${page}&_limit=${limit}`);
-    return res;
+    return await ApiRequest<PaginatedRes<Review[]>>(
+      `/reviews?_page=${page}&_per_page=${limit}`
+    );
   } catch (error) {
-    console.error("Error fetching reviews: \n", error);
+    if (setError) setError(`Error fetching reviews: \n ${error}`);
+
+    console.error(`Error fetching reviews: \n ${error}`);
     return null;
   }
 };
