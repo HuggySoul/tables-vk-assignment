@@ -1,0 +1,14 @@
+.table {
+  border: 1px solid var(--foreground);
+}
+
+.tableHeadCell {
+  border: 1px solid var(--foreground);
+  padding: 8px;
+  background-color: #f0f0f0;
+}
+
+.tableBodyCell {
+  border: 1px solid var(--foreground);
+  padding: 8px;
+}
