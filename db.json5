@@ -107,7 +107,7 @@
     },
     {
       id: 16,
-      comment: null,
+      comment: "Lorem lorem lorem",
       username: "Alice",
       date: "20-12-2024",
       rating: 4,
