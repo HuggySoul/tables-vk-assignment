@@ -5,22 +5,24 @@ import { PrimaryBtn } from "../../../../shared/ui/primaryBtn";
 import { useValidate } from "../../hooks/useValidate";
 import { useSendForm } from "../../hooks/useSendForm";
 import loadingIcon from "../../../../shared/assets/loadingIcon.svg";
+import type { Review } from "../../../../shared/types/tableRecord.type";
 
 interface IProps {
+  review?: Review | null;
   closeModal: () => void;
 }
 
-export const AddReviewForm = ({ closeModal }: IProps) => {
+export const AddReviewForm = ({ closeModal, review }: IProps) => {
   const [formData, dispatch] = useReducer(FormReducer, {
-    username: "",
-    comment: "",
-    rating: 5,
-    date: "",
+    username: review ? review.username : "",
+    comment: review ? review.comment : "",
+    rating: review ? review.rating : 5,
+    date: review ? review.date : "",
   });
 
   const { errors, validate } = useValidate(formData);
 
-  const { submitLayout, isLoading } = useSendForm();
+  const { submitLayout, isLoading } = useSendForm(review?.id);
 
   useEffect(() => {
     const oldOverflowX = document.body.style.overflowX;
@@ -37,7 +39,7 @@ export const AddReviewForm = ({ closeModal }: IProps) => {
   }, []);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
+    // e.preventDefault();
     submitLayout(formData, validate, () => {
       dispatch({ type: "RESET" });
       closeModal();
@@ -47,7 +49,9 @@ export const AddReviewForm = ({ closeModal }: IProps) => {
   return (
     <dialog onClick={closeModal} className={st.formModal}>
       <div onClick={(e) => e.stopPropagation()} className={st.modalContent}>
-        <h1 className={st.titleTxt}>Добавить отзыв</h1>
+        <h1 className={st.titleTxt}>
+          {review ? "Редактировать отзыв" : "Добавить отзыв"}
+        </h1>
         <form className={st.form}>
           <div className={st.inputBlock}>
             <label className={st.labelTxt} htmlFor="name">
@@ -128,7 +132,11 @@ export const AddReviewForm = ({ closeModal }: IProps) => {
               type="date"
               value={formData.date}
               onChange={(e) =>
-                dispatch({ type: "UPDATE_FIELD", field: "date", value: e.target.value })
+                dispatch({
+                  type: "UPDATE_FIELD",
+                  field: "date",
+                  value: e.target.value,
+                })
               }
             />
             {errors.date && <span className={st.error}>{errors.date}</span>}
@@ -138,7 +146,7 @@ export const AddReviewForm = ({ closeModal }: IProps) => {
             <PrimaryBtn onClick={closeModal}>Отменить</PrimaryBtn>
             <div className={st.submitBtn}>
               <PrimaryBtn disabled={isLoading} onClick={handleSubmit}>
-                Добавить
+                {review ? "Сохранить" : "Добавить"}
               </PrimaryBtn>
               {isLoading && (
                 <img className={st.loadingIcon} src={loadingIcon} alt="Загрузка..." />
