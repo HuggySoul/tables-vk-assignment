@@ -1,0 +1,23 @@
+.primaryBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: var(--border-col);
+  padding: 8px;
+  background-color: var(--primary-col);
+  color: white;
+}
+
+.primaryBtn:hover {
+  background-color: var(--primary-hover-col);
+}
+
+.primaryBtn:active {
+  background-color: var(--primary-active-col);
+}
+
+.primaryBtn:disabled {
+  background-color: var(--primary-disable-col);
+  cursor: not-allowed;
+}

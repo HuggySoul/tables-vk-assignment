@@ -12,3 +12,9 @@
   border: 1px solid var(--foreground);
   padding: 8px;
 }
+
+.tableBtns {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}

@@ -1,0 +1,105 @@
+.formModal {
+  position: fixed;
+  z-index: var(--modal-z-index);
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-background-col);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  overflow: hidden;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px var(--box-shadow-col);
+  height: 50%;
+  width: 60%;
+  max-width: 700px;
+  min-width: 420px;
+  min-height: 470px;
+  max-height: 600px;
+  background-color: var(--background);
+  padding: 10px 20px;
+  gap: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.titleTxt {
+  text-align: center;
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.labelTxt {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.textInput {
+  font-style: "Nunito Sans";
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 15px;
+  width: 100%;
+  border: none;
+  box-shadow: 0px 0px 5px 0px var(--box-shadow-col);
+}
+
+.commentInput {
+  resize: none;
+  height: 100px;
+}
+
+.selector {
+  box-shadow: 0px 0px 5px 0px var(--box-shadow-col);
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 100%;
+}
+
+.dateInput {
+  box-shadow: 0px 0px 5px 0px var(--box-shadow-col);
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btnsBlock {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.submitBtn {
+  display: flex;
+  gap: 5px;
+}
+
+.loadingIcon {
+  width: 30px;
+}
+
+.error {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--attention-col);
+}

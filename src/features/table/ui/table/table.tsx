@@ -3,6 +3,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Review } from "../../../../shared/types/tableRecord.type";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useGetReviews } from "../../hooks/useGetReviews";
+import { AddReviewForm } from "../../../form/ui/addReviewForm";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import { PrimaryBtn } from "../../../../shared/ui/primaryBtn";
 
 // Определяем колонки
 const columns: ColumnDef<Review>[] = [
@@ -15,6 +19,7 @@ const columns: ColumnDef<Review>[] = [
 
 export const Table = () => {
   const { reviews, loadMore, isLoading } = useGetReviews(10);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const table = useReactTable({
     data: reviews,
@@ -24,6 +29,14 @@ export const Table = () => {
 
   return (
     <>
+      {isFormOpen &&
+        createPortal(
+          <AddReviewForm closeModal={() => setIsFormOpen(false)} />,
+          document.body
+        )}
+      <div className={st.tableBtns}>
+        <PrimaryBtn onClick={() => setIsFormOpen(true)}>Добавить отзыв</PrimaryBtn>
+      </div>
       <table className={st.table}>
         {/* Шапка таблицы */}
         <thead>
