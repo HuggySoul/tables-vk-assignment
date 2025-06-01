@@ -6,6 +6,7 @@ interface IProps {
   disabled?: boolean;
   borderRadius?: string;
   padding?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 export const PrimaryBtn = ({
@@ -14,9 +15,11 @@ export const PrimaryBtn = ({
   disabled = false,
   borderRadius = "10px",
   padding = "8px",
+  type = "button",
 }: IProps) => {
   return (
     <button
+      type={type}
       style={{ borderRadius: borderRadius, padding: padding }}
       disabled={disabled}
       onClick={onClick}

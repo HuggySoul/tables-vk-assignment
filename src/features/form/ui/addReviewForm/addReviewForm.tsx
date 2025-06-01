@@ -51,7 +51,7 @@ export const AddReviewForm = ({ closeModal, review }: IProps) => {
         <h1 className={st.titleTxt}>
           {review ? "Редактировать отзыв" : "Добавить отзыв"}
         </h1>
-        <form className={st.form}>
+        <form onSubmit={handleSubmit} className={st.form}>
           <div className={st.inputBlock}>
             <label className={st.labelTxt} htmlFor="name">
               Имя пользователя*:
@@ -144,7 +144,7 @@ export const AddReviewForm = ({ closeModal, review }: IProps) => {
           <div className={st.btnsBlock}>
             <PrimaryBtn onClick={closeModal}>Отменить</PrimaryBtn>
             <div className={st.submitBtn}>
-              <PrimaryBtn disabled={isLoading} onClick={handleSubmit}>
+              <PrimaryBtn type="submit" disabled={isLoading}>
                 {review ? "Сохранить" : "Добавить"}
               </PrimaryBtn>
               {isLoading && (
