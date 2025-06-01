@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
  * Хук для реализации подгрузки данных при скролле
  * @returns {observerTarget} Ссылка на элемент, который будет триггером для подгрузки данных
  * */
-export const useInfiniteScroll = ({
+export const useInfiniteLoad = ({
   loadMore,
   isLoading,
   hasMore,

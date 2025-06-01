@@ -4,12 +4,12 @@ import type { Review } from "../../../../shared/types/tableRecord.type";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useGetReviews } from "../../hooks/useGetReviews";
 import { AddReviewForm } from "../../../form/ui/addReviewForm";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { PrimaryBtn } from "../../../../shared/ui/primaryBtn";
 import editIcon from "../../../../shared/assets/editIcon.svg";
-import { useInfiniteScroll } from "../../hooks/useInfiniteLoad";
-
+import { useInfiniteLoad } from "../../hooks/useInfiniteLoad";
+import loadingIcon from "../../../../shared/assets/loadingIcon.svg";
 // Определяем колонки
 const columns: ColumnDef<Review>[] = [
   { accessorKey: "id", header: "ID" },
@@ -24,7 +24,7 @@ export const Table = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editReview, setEditReview] = useState<Review | null | undefined>(null);
 
-  const observerTarget = useInfiniteScroll({ loadMore, isLoading, hasMore });
+  const observerTarget = useInfiniteLoad({ loadMore, isLoading, hasMore });
 
   const table = useReactTable({
     data: reviews,
@@ -88,10 +88,12 @@ export const Table = () => {
         </tbody>
       </table>
       {/* Элемент для Intersection Observer */}
-      {!isLoading && (
+      {!isLoading ? (
         <div ref={observerTarget} style={{ height: "40px" }}>
           {!hasMore && reviews.length > 0 && <span>Больше данных нет</span>}
         </div>
+      ) : (
+        <img className={st.loadingIcon} src={loadingIcon} alt="Загрузка ..." />
       )}
     </>
   );
