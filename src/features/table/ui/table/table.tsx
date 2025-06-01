@@ -19,7 +19,7 @@ const columns: ColumnDef<Review>[] = [
 ];
 
 export const Table = () => {
-  const { reviews, loadMore, isLoading } = useGetReviews(10);
+  const { reviews, loadMore, isLoading } = useGetReviews(30);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editReview, setEditReview] = useState<Review | null | undefined>(null);
 
@@ -33,11 +33,17 @@ export const Table = () => {
     setEditReview(review);
     setIsFormOpen(true);
   };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditReview(null);
+  };
+
   return (
     <>
       {isFormOpen &&
         createPortal(
-          <AddReviewForm review={editReview} closeModal={() => setIsFormOpen(false)} />,
+          <AddReviewForm review={editReview} closeModal={handleCloseForm} />,
           document.body
         )}
       <div className={st.tableBtns}>
@@ -65,7 +71,7 @@ export const Table = () => {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-              <td>
+              <td className={st.fakeCell}>
                 <button
                   onClick={() => handleEdit(row.original)}
                   title="Изменить запись"

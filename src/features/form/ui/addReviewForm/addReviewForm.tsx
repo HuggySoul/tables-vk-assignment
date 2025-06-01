@@ -38,8 +38,7 @@ export const AddReviewForm = ({ closeModal, review }: IProps) => {
     };
   }, []);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // e.preventDefault();
+  const handleSubmit = () => {
     submitLayout(formData, validate, () => {
       dispatch({ type: "RESET" });
       closeModal();
