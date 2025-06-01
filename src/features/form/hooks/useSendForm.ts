@@ -13,10 +13,14 @@ export const useSendForm = (reviewId: undefined | string) => {
   /** обёртка для обработчика отправки формы */
   const submitLayout = async (
     formData: Omit<Review, "id">,
+    e: React.FormEvent<HTMLFormElement>,
     validate: () => boolean,
     successActions: () => void
   ) => {
-    if (!validate()) return;
+    if (!validate()) {
+      e.preventDefault();
+      return;
+    }
 
     setIsLoading(true);
 

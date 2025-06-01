@@ -18,7 +18,11 @@ export const useValidate = (formData: Omit<Review, "id">) => {
     if (formData.rating < 1 || formData.rating > 5)
       newErrors.rating = "*Оценка должна быть от 1 до 5";
 
+    const currentDate = new Date().toISOString().split("T")[0];
+
     if (!formData.date) newErrors.date = "*Обязательное поле";
+    else if (formData.date > currentDate)
+      newErrors.date = "*Дата не может быть в будущем";
 
     setErrors(newErrors);
 

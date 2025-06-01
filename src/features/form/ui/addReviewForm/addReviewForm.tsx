@@ -38,8 +38,8 @@ export const AddReviewForm = ({ closeModal, review }: IProps) => {
     };
   }, []);
 
-  const handleSubmit = () => {
-    submitLayout(formData, validate, () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    submitLayout(formData, e, validate, () => {
       dispatch({ type: "RESET" });
       closeModal();
     });
@@ -144,7 +144,7 @@ export const AddReviewForm = ({ closeModal, review }: IProps) => {
           <div className={st.btnsBlock}>
             <PrimaryBtn onClick={closeModal}>Отменить</PrimaryBtn>
             <div className={st.submitBtn}>
-              <PrimaryBtn type="submit" disabled={isLoading}>
+              <PrimaryBtn type={"submit"} disabled={isLoading}>
                 {review ? "Сохранить" : "Добавить"}
               </PrimaryBtn>
               {isLoading && (
