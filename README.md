@@ -15,7 +15,7 @@
 3. После запуска:
 
    - Приложение будет доступно на `http://localhost:8080`.
-   - `json-server` будет доступен на `http://localhost:3000/`.
+   - `json-server` будет доступен на `http://localhost:3000/previews`.
 
    Для остановки используйте:
 
@@ -40,7 +40,7 @@
      ```
 3. После запуска:
    - Приложение будет доступно на `http://localhost:8080`.
-   - `json-server` будет доступен на `http://localhost:3000/data`.
+   - `json-server` будет доступен на `http://localhost:3000/previews`.
 
 ## Доступные скрипты
 
