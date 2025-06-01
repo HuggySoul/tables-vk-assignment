@@ -4,10 +4,11 @@ import type { Review } from "../../../../shared/types/tableRecord.type";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useGetReviews } from "../../hooks/useGetReviews";
 import { AddReviewForm } from "../../../form/ui/addReviewForm";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { PrimaryBtn } from "../../../../shared/ui/primaryBtn";
 import editIcon from "../../../../shared/assets/editIcon.svg";
+import { useInfiniteScroll } from "../../hooks/useInfiniteLoad";
 
 // Определяем колонки
 const columns: ColumnDef<Review>[] = [
@@ -19,9 +20,11 @@ const columns: ColumnDef<Review>[] = [
 ];
 
 export const Table = () => {
-  const { reviews, loadMore, isLoading } = useGetReviews(30);
+  const { reviews, loadMore, isLoading, hasMore } = useGetReviews(30);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editReview, setEditReview] = useState<Review | null | undefined>(null);
+
+  const observerTarget = useInfiniteScroll({ loadMore, isLoading, hasMore });
 
   const table = useReactTable({
     data: reviews,
@@ -84,9 +87,12 @@ export const Table = () => {
           ))}
         </tbody>
       </table>
-      <button disabled={isLoading} onClick={loadMore}>
-        Загрузить еще
-      </button>
+      {/* Элемент для Intersection Observer */}
+      {!isLoading && (
+        <div ref={observerTarget} style={{ height: "40px" }}>
+          {!hasMore && reviews.length > 0 && <span>Больше данных нет</span>}
+        </div>
+      )}
     </>
   );
 };
