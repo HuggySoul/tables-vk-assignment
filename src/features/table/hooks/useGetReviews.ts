@@ -23,9 +23,6 @@ export const useGetReviews = (limitPerLoad: number) => {
 
       const res = await GetReviews(page, limitPerLoad, setError);
 
-      console.log(res);
-      console.log(hasMore);
-      console.log(page);
       if (res) {
         setReviews((prevReviews) => [...prevReviews, ...res.data]);
         setHasMore(page < res.pages);
