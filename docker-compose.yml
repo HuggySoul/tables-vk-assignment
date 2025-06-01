@@ -4,11 +4,12 @@ services:
       context: .
       dockerfile: dockerfile.client
     container_name: table-client
+    image: table-client
     ports:
       - "8080:8080"
     volumes:
-      - .:/app # Монтируем текущую директорию для HMR
-      - /app/node_modules # Исключаем node_modules из монтирования
+      - .:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=development
     depends_on:
@@ -21,11 +22,12 @@ services:
       context: .
       dockerfile: dockerfile.server
     container_name: table-server
+    image: table-server
     ports:
       - "3000:3000"
     volumes:
       - json-server-data:/data
-      - ./db.json5:/data/db.json5
+      - ./data:/data # Монтируем директорию data
     networks:
       - app-network
 
